@@ -7,7 +7,7 @@ const browser = require('webdriverio').remote({
     host: 'localhost',
     port: 4445,
     desiredCapabilities: {
-        browserName: 'chrome',
+        'browserName': 'chrome',
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
     }
 });
@@ -22,12 +22,14 @@ test('check if what we generate equals to what translate.google.com generates', 
             .executeAsync((tokenName, callback) => {
                 setTimeout(function () {
                     injectAjaxInterceptor(tokenName, callback);
-                    document.getElementById('source').value = 'hello';
+                    document.getElementById('source').value = 'hello'; // eslint-disable-line no-undef
                 }, 0);
 
                 function injectAjaxInterceptor(tokenName, callback) {
+                    /* eslint-disable no-undef */
                     XMLHttpRequest.prototype.reallySend = XMLHttpRequest.prototype.send;
                     XMLHttpRequest.prototype.send = function (data) {
+                    /* eslint-enable no-undef */
                         var _this = this;
                         setTimeout(function () {
                             if (_this.responseURL.indexOf('single') !== -1) {

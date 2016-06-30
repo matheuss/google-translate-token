@@ -5,9 +5,10 @@
  * Everything between 'BEGIN' and 'END' was copied from the url above.
  */
 
-var got = require('got'),
-    Configstore = require('configstore');
+var got = require('got');
+var Configstore = require('configstore');
 
+/* eslint-disable */
 // BEGIN
 
 function sM(a) {
@@ -64,6 +65,7 @@ var wr = function(a) {
 };
 
 // END
+/* eslint-enable */
 
 var config = new Configstore('google-translate-api');
 
@@ -75,7 +77,7 @@ function updateTKK() {
     return new Promise(function (resolve, reject) {
         var now = Math.floor(Date.now() / 3600000);
 
-        if (Number(window.TKK.split('.')[0]) == now) {
+        if (Number(window.TKK.split('.')[0]) === now) {
             resolve();
         } else {
             got('https://translate.google.com').then(function (res) {
@@ -83,10 +85,12 @@ function updateTKK() {
 
                 if (code) {
                     eval(code[0]);
-                    if (typeof TKK != 'undefined') {
+                    /* eslint-disable no-undef */
+                    if (typeof TKK !== 'undefined') {
                         window.TKK = TKK;
                         config.set('TKK', TKK);
                     }
+                    /* eslint-enable no-undef */
                 }
 
                 /**
@@ -95,9 +99,10 @@ function updateTKK() {
                  */
 
                 resolve();
-            }).catch(function (ignored) {
+            }).catch(function (err) {
                 var e = new Error();
                 e.code = 'BAD_NETWORK';
+                e.message = err.message;
                 reject(e);
             });
         }

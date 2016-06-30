@@ -4,7 +4,7 @@
   "description": "A package that generates the necessary token to use the Google Translate API for free",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "xo && ava"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,14 @@
   },
   "devDependencies": {
     "ava": "^0.15.2",
-    "webdriverio": "^4.1.1"
+    "webdriverio": "^4.1.1",
+    "xo": "^0.16.0"
+  },
+  "xo": {
+    "space": 4,
+    "rules": {
+      "xo/no-abusive-eslint-disable": "warn",
+      "no-eval": "warn"
+    }
   }
 }
