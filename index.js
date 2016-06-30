@@ -108,10 +108,15 @@ function get(text) {
     return updateTKK().then(function () {
         var tk = sM(text);
         tk = tk.replace('&tk=', '');
-        return tk;
+        return {name: 'tk', value: tk};
     }).catch(function (err) {
         throw err;
     });
 }
 
+function getName() {
+    return 'tk';
+}
+
 module.exports.get = get;
+module.exports.getName = getName;
