@@ -36,6 +36,7 @@
     "got": "^6.3.0"
   },
   "devDependencies": {
-    "ava": "^0.15.2"
+    "ava": "^0.15.2",
+    "webdriverio": "^4.1.1"
   }
 }
