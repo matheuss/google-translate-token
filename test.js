@@ -3,7 +3,7 @@ import {get as getToken} from './index';
 
 const browser = require('webdriverio').remote({
     user: process.env.SAUCE_USERNAME,
-    key: process.env.SAUCE_ACCESS,
+    key: process.env.SAUCE_ACCESS_KEY,
     host: 'localhost',
     port: 4445,
     desiredCapabilities: {
