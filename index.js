@@ -119,9 +119,4 @@ function get(text) {
     });
 }
 
-function getName() {
-    return 'tk';
-}
-
 module.exports.get = get;
-module.exports.getName = getName;
