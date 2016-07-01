@@ -1,6 +1,6 @@
 {
   "name": "google-translate-tk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A package that generates the necessary token to use the Google Translate API for free",
   "main": "index.js",
   "scripts": {
