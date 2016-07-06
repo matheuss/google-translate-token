@@ -1,4 +1,5 @@
-# google-translate-token [![Build Status](https://travis-ci.org/matheuss/google-translate-token.svg?branch=master)](https://travis-ci.org/matheuss/google-translate-token) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
+# google-translate-token [![Build Status](https://travis-ci.org/matheuss/google-translate-token.svg?branch=master)](https://travis-ci.org/matheuss/google-translate-token) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo) [![Known Vulnerabilities](https://snyk.io/package/npm/google-translate-token/badge.svg)](https://snyk.io/package/npm/google-translate-token)
+
 A package that generates the necessary token to use the [**Google Translate API for free** :dollar::no_entry_sign:](https://github.com/matheuss/google-translate-api)
 
 ## Why
