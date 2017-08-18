@@ -28,6 +28,17 @@ token.get('Hello').then(console.log);
 //=> { name: 'tk', value: '159402.284291' }
 ```
 
+## Usage in China
+
+添加第二个参数'cn'，即可在国内使用。（`https://translate.google.cn`）
+
+``` js
+const token = require('google-translate-token');
+
+token.get('Hello', 'cn').then(console.log);
+//=> { name: 'tk', value: '159402.284291' }
+```
+
 ## Related
 
 - [`google-translate-api`](https://github.com/matheuss/google-translate-api) – A **free** and **unlimited** API for Google Translate :dollar::no_entry_sign:
