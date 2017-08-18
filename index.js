@@ -73,14 +73,18 @@ var window = {
     TKK: config.get('TKK') || '0'
 };
 
-function updateTKK() {
+function updateTKK(cn) {
     return new Promise(function (resolve, reject) {
         var now = Math.floor(Date.now() / 3600000);
 
         if (Number(window.TKK.split('.')[0]) === now) {
             resolve();
         } else {
-            got('https://translate.google.com').then(function (res) {
+            let googleUrl = 'https://translate.google.com';
+            if (cn === 'cn') {
+                googleUrl = 'https://translate.google.cn';
+            }
+            got(googleUrl).then(function (res) {
                 var code = res.body.match(/TKK=(.*?)\(\)\)'\);/g);
 
                 if (code) {
@@ -109,8 +113,8 @@ function updateTKK() {
     });
 }
 
-function get(text) {
-    return updateTKK().then(function () {
+function get(text, cn) {
+    return updateTKK(cn).then(function () {
         var tk = sM(text);
         tk = tk.replace('&tk=', '');
         return {name: 'tk', value: tk};
