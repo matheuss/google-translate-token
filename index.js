@@ -80,7 +80,7 @@ function updateTKK() {
         if (Number(window.TKK.split('.')[0]) === now) {
             resolve();
         } else {
-            got('https://translate.google.com').then(function (res) {
+            got(process.env.GOOGLE_TRANSLATE_API || 'https://translate.google.com').then(function (res) {
                 var code = res.body.match(/TKK=(.*?)\(\)\)'\);/g);
 
                 if (code) {
