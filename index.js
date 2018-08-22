@@ -73,22 +73,35 @@ var window = {
     TKK: config.get('TKK') || '0'
 };
 
+var url = config.get('url');
+
 function updateTKK() {
     return new Promise(function (resolve, reject) {
         var now = Math.floor(Date.now() / 3600000);
 
-        if (Number(window.TKK.split('.')[0]) === now) {
+        if (url && Number(window.TKK.split('.')[0]) === now) {
             resolve();
         } else {
-            got('https://translate.google.com').then(function (res) {
+            const reqs = [
+                got('https://translate.google.com'),
+                got('https://translate.google.cn')
+            ];
+            Promise.race(reqs).then(function (res) {
+                reqs.forEach(function (res) {
+                    res.cancel();
+                });
+
                 var code = res.body.match(/TKK=(.*?)\(\)\)'\);/g);
 
                 if (code) {
+                    var TKK;
                     eval(code[0]);
                     /* eslint-disable no-undef */
                     if (typeof TKK !== 'undefined') {
                         window.TKK = TKK;
                         config.set('TKK', TKK);
+                        url = res.url;
+                        config.set('url', url);
                     }
                     /* eslint-enable no-undef */
                 }
@@ -113,7 +126,7 @@ function get(text) {
     return updateTKK().then(function () {
         var tk = sM(text);
         tk = tk.replace('&tk=', '');
-        return {name: 'tk', value: tk};
+        return {name: 'tk', value: tk, url: url};
     }).catch(function (err) {
         throw err;
     });
