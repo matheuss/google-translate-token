@@ -1,6 +1,6 @@
 {
   "name": "google-translate-token",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A package that generates the necessary token to use the Google Translate API for free",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,7 @@
   "homepage": "https://github.com/matheuss/google-translate-tk#readme",
   "dependencies": {
     "configstore": "^5.0.0",
-    "got": "^6.3.0"
+    "got": "^11.8.1"
   },
   "devDependencies": {
     "ava": "^0.15.2",
