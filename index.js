@@ -57,14 +57,27 @@ function batchExecute(rpcId, payload, opts) {
 
 
 function fetchWizGlobalData(url) {
+    var propFinder = {
+        "f.sid": /"FdrFJe":"(.*?)"/,
+        "bl": /"cfb2h":"(.*?)"/,
+        "at": /"SNlM0e":"(.*?)"/,
+    }
     return got.get(url)
         .then(function(res) {
             var start = res.body.indexOf("WIZ_global_data = {");
             if (start == -1) throw new Error("Wiz not found");
-            var end = res.body.indexOf("};", start);
-            return res.body.substring(start+18, end+1);
+            var end = res.body.indexOf("</script>", start);
+            return res.body.substring(start, end);
         })
-        .then(JSON.parse)
+        .then(function(text) {
+            var wiz = {};
+            for (var prop in propFinder) {
+                var match = propFinder[prop].exec(text);
+                if (match) wiz[prop] = match[1];
+                else console.warn("Wiz property not found '" + prop + "'");
+            }
+            return wiz;
+        })
 }
 
 
@@ -73,8 +86,8 @@ function getBatchExecuteParams(wiz, rpcId, payload) {
     return {
         query: {
             "rpcids": rpcId,
-            "f.sid": wiz["FdrFJe"],
-            "bl": wiz["cfb2h"],
+            "f.sid": wiz["f.sid"],
+            "bl": wiz["bl"],
             "hl": "en",
             "soc-app": 1,
             "soc-platform": 1,
@@ -84,7 +97,7 @@ function getBatchExecuteParams(wiz, rpcId, payload) {
         },
         body: {
             "f.req": JSON.stringify([[[rpcId, JSON.stringify(payload), null, "generic"]]]),
-            "at": wiz["SNlM0e"]
+            "at": wiz["at"]
         }
     }
 }
